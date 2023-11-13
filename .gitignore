@@ -1,0 +1,14 @@
+# Build
+/[Oo]bj/
+/[Bb]in/
+/[Bb]uild/
+/[Bb]uilds/
+
+# Debug
+*/[Dd]ebug/
+
+# Cache
+*.[Cc]ache
+
+# IDE
+/.vscode
