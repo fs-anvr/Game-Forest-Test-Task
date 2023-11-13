@@ -1,4 +1,4 @@
-# Тестовое задание должность C# Developer в Game Forest
+# Тестовое задание на должность C# Developer в Game Forest
 
 Задача:
 \
