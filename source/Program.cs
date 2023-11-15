@@ -1,16 +1,29 @@
+using Game_Forest_Test_Task.source.graphics;
+
 namespace Game_Forest_Test_Task;
 
 static class Program
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
     [STAThread]
     static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
-    }    
+
+        var window = new Window()
+            .SetSize(new Size(800, 600))
+            .SetHeading("THE GAME");
+
+        var sunImage = Image.FromFile("resources/sun.png");
+        var pictureBox = new Sprite()
+            .SetImage(sunImage)
+            .SetSize(sunImage.Size);
+        //window.Controls.Add(pictureBox);
+
+        var button = new source.graphics.Button()
+            .SetSize(new Size(200, 50))
+            .SetText("I'm Mr. Button!");
+        window.Controls.Add(button);
+
+        Application.Run(window);
+    }
 }
