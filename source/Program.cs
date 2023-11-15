@@ -1,29 +1,28 @@
 using Game_Forest_Test_Task.source.graphics;
+using Game_Forest_Test_Task.source.core;
 
-namespace Game_Forest_Test_Task;
-
-static class Program
+namespace Game_Forest_Test_Task
 {
-    [STAThread]
-    static void Main()
+    static class Program
     {
-        ApplicationConfiguration.Initialize();
+        static void Main(string[] args)
+        {
+            Start();
+        }
 
-        var window = new Window()
+        private static void Start()
+        {
+            ApplicationConfiguration.Initialize();
+        
+            var window = CreateMainWindow();
+            var game = new Game();
+
+            Application.Run(window);
+        }
+
+        private static Window CreateMainWindow()
+        => new Window()
             .SetSize(new Size(800, 600))
-            .SetHeading("THE GAME");
-
-        var sunImage = Image.FromFile("resources/sun.png");
-        var pictureBox = new Sprite()
-            .SetImage(sunImage)
-            .SetSize(sunImage.Size);
-        //window.Controls.Add(pictureBox);
-
-        var button = new source.graphics.Button()
-            .SetSize(new Size(200, 50))
-            .SetText("I'm Mr. Button!");
-        window.Controls.Add(button);
-
-        Application.Run(window);
+            .SetHeading("Ultimate Match-3 Game Of The Year");
     }
 }
