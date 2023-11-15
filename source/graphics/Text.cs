@@ -13,6 +13,7 @@ namespace Game_Forest_Test_Task.source.graphics
         public Text SetSize(Size size)
         {
             this.size = size;
+            Draw();
             return this;
         }
 

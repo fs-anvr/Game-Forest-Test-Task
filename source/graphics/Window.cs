@@ -4,7 +4,6 @@ namespace Game_Forest_Test_Task.source.graphics
     {
         private string heading = "Window";
         private Size size;
-
         public Window()
         {
             size = new Size(800, 600);
