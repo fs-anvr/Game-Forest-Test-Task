@@ -21,8 +21,24 @@ namespace Game_Forest_Test_Task
         }
 
         private static Window CreateMainWindow()
-        => new Window()
-            .SetSize(new Size(800, 600))
-            .SetHeading("Ultimate Match-3 Game Of The Year");
+        {
+            var heading = "Ultimate Match-3 Game Of The Year";
+            var size = new Size(800, 600);
+            Point positionOnScreen;
+            if (Screen.PrimaryScreen is not null)
+            {
+                positionOnScreen = new Point{
+                    X = Screen.PrimaryScreen.Bounds.Width / 2 - size.Width / 2,
+                    Y = Screen.PrimaryScreen.Bounds.Height / 2 - size.Height / 2
+                    };
+            } else
+            {
+                positionOnScreen = Point.Empty;
+            }
+            return new Window()
+                .SetSize(size)
+                .SetHeading(heading)
+                .SetPositionOnScreen(positionOnScreen);
+        }
     }
 }

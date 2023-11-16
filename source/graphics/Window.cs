@@ -2,33 +2,37 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Window : Form
     {
-        private string heading = "Window";
-        private Size size;
         public Window()
         {
-            size = new Size(800, 600);
-            Draw();
+            this.Size = Size.Empty;
+            this.Text = String.Empty;
+            this.Location = Point.Empty;
         }
 
         public Window SetSize(Size size)
         {
-            this.size = size;
-            Draw();
+            this.Size = size;
             return this;
         }
 
         public Window SetHeading(string heading)
         {
-            this.heading = heading;
-            Draw();
+            this.Text = heading;
             return this;
         }
 
-        private void Draw()
+        public Window SetPositionOnScreen(Point position)
         {
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = size;
-            this.Text = heading;
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = position;
+            return this;
+        }
+
+        public Window SetControls(List<Control> elements)
+        {
+            this.Controls.Clear();
+            this.Controls.AddRange(elements.ToArray());
+            return this;
         }
     }
 }

@@ -2,32 +2,30 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Text : Label
     {
-        private string text = "";
-        private Size size = Size.Empty;
 
         public Text()
         {
-            Draw();
+            this.Size = Size.Empty;
+            this.Text = String.Empty;
+            this.Location = Point.Empty;
         }
 
         public Text SetSize(Size size)
         {
-            this.size = size;
-            Draw();
+            this.Size = size;
             return this;
         }
 
         public Text SetText(string text)
         {
-            this.text = text;
-            Draw();
+            this.Text = text;
             return this;
         }
 
-        private void Draw()
+        public Text SetPosition(Point position)
         {
-            this.ClientSize = size;
-            this.Text = text;
+            this.Location = position;
+            return this;
         }
     }
 }

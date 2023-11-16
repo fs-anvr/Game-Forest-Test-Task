@@ -2,30 +2,30 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Button : System.Windows.Forms.Button
     {
-        private string text = "";
-        private Size size = Size.Empty;
 
         public Button()
-        {}
+        {
+            this.Size = Size.Empty;
+            this.Text = String.Empty;
+            this.Location = Point.Empty;
+        }
 
         public Button SetSize(Size size)
         {
-            this.size = size;
-            Draw();
+            this.Size = size;
             return this;
         }
 
         public Button SetText(string text)
         {
-            this.text = text;
-            Draw();
+            this.Text = text;
             return this;
         }
 
-        private void Draw()
+        public Button SetPosition(Point position)
         {
-            this.ClientSize = size;
-            this.Text = text;
+            this.Location = position;
+            return this;
         }
     }
 }
