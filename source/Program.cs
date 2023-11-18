@@ -1,9 +1,11 @@
+using Game_Forest_Test_Task.source.features.gameover;
 using Game_Forest_Test_Task.source.features.board;
 using Game_Forest_Test_Task.source.features.menu;
 using Game_Forest_Test_Task.source.features;
 using Game_Forest_Test_Task.source.graphics;
 using Game_Forest_Test_Task.source.core;
-using Game_Forest_Test_Task.source.features.gameover;
+using Game_Forest_Test_Task.source.features.click;
+using Game_Forest_Test_Task.source.features.match3;
 
 namespace Game_Forest_Test_Task
 {
@@ -35,6 +37,12 @@ namespace Game_Forest_Test_Task
             var gameOverButtonController = new GameOverButtonController();
             Game.Instance().UI?.GameOverButton.SetController(gameOverButtonController);
             Game.Instance().Controllers.Add(gameOverButtonController);
+
+            var ClickController = new ClickController();
+            Game.Instance().Controllers.Add(ClickController);
+
+            var match3Controller = new Match3Controller();
+            Game.Instance().Updatables.Add(match3Controller);
 
             GenerateCells();
             
@@ -89,7 +97,10 @@ namespace Game_Forest_Test_Task
             {
                 for (int y = 0; y < boardShape?.Height; ++ y)
                 {
-                    var cell = new Cell{ valueTypeId = cellIdGenerator.Next(1, 5)};
+                    var cell = new Cell {
+                        valueTypeId = cellIdGenerator.Next(1, 5),
+                        position = new Size(x, y)
+                        };
                     Game.Instance().GameBoard?.SetCell(x, y, cell);
                 }
             }

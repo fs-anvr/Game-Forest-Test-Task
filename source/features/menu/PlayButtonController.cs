@@ -12,7 +12,7 @@ namespace Game_Forest_Test_Task.source.features.menu
                     if (Game.Instance().GameState.Equals(GameState.MainMenu))
                     {
                         Game.Instance()?.UI?.Window.SetActiveScreen(1);
-                        Game.Instance().GameState = GameState.Board_AwaitInput;
+                        Game.Instance().GameState = GameState.Board_AwaitClickFirst;
                     }
                     break;
                 default:

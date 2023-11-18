@@ -6,6 +6,7 @@ namespace Game_Forest_Test_Task.source.core
 {
     public class Game
     {
+        public int Score {get; set; }
         public GameBoard? GameBoard { get; private set; }
         public UI? UI { get; private set; }
         public GameState GameState { get; set; }
