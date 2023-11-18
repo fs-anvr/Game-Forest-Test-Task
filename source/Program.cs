@@ -1,6 +1,9 @@
 using Game_Forest_Test_Task.source.features.board;
+using Game_Forest_Test_Task.source.features.menu;
+using Game_Forest_Test_Task.source.features;
 using Game_Forest_Test_Task.source.graphics;
 using Game_Forest_Test_Task.source.core;
+using Game_Forest_Test_Task.source.features.gameover;
 
 namespace Game_Forest_Test_Task
 {
@@ -15,37 +18,25 @@ namespace Game_Forest_Test_Task
         {
             ApplicationConfiguration.Initialize();
             var window = CreateMainWindow();
-
-            var windowSize = new Size(800, 600);
             var boardShape = new Size(8, 8);
-            var cellFilenames = new Dictionary<int, string>()
-            {
-                {1, "blue"},
-                {2, "gray"},
-                {3, "green"},
-                {4, "ogre"},
-                {5, "red"}
-            };
-            var ui = UI.Create(windowSize, boardShape, cellFilenames);
-            foreach(var screen in ui.Screens)
-            {
-                window.AddScreen(screen);
-            }
-            window.SetActiveScreen(1);
-
-            var game = new Game()
+            var ui = CreateUI(window, boardShape);
+            
+            Game.Instance()
                 .SetTargetFPS(60)
-                .SetGameBoard(new GameBoard(boardShape, ui.GameBoardView));
+                .SetUI(ui)
+                .SetGameBoard(new GameBoard(boardShape, ui.GameBoardView))
+                .SetState(GameState.MainMenu);
+            Game.Instance().UI?.Window.SetActiveScreen(0);
 
-            var cellIdGenerator = new Random();
-            for (int x = 0; x < boardShape.Width; ++x)
-            {
-                for (int y = 0; y < boardShape.Height; ++ y)
-                {
-                    var cell = new Cell{ valueTypeId = cellIdGenerator.Next(1, 5)};
-                    game.GameBoard?.SetCell(x, y, cell);
-                }
-            }
+            var playButtonController = new PlayButtonController();
+            Game.Instance().UI?.PlayButton.SetController(playButtonController);
+            Game.Instance().Controllers.Add(playButtonController);
+
+            var gameOverButtonController = new GameOverButtonController();
+            Game.Instance().UI?.GameOverButton.SetController(gameOverButtonController);
+            Game.Instance().Controllers.Add(gameOverButtonController);
+
+            GenerateCells();
             
             Application.Run(window);
         }
@@ -69,6 +60,39 @@ namespace Game_Forest_Test_Task
                 .SetSize(size)
                 .SetHeading(heading)
                 .SetPositionOnScreen(positionOnScreen);
+        }
+
+        private static UI CreateUI(Window window, Size boardShape)
+        {
+            var cellFilenames = new Dictionary<int, string>()
+            {
+                {1, "blue"},
+                {2, "gray"},
+                {3, "green"},
+                {4, "ogre"},
+                {5, "red"}
+            };
+
+            return UI.Create(window, boardShape, cellFilenames);
+        }
+
+        private static void GenerateCells()
+        {
+            var boardShape = Game.Instance().GameBoard?.Shape;
+            if (boardShape is null)
+            {
+                return;
+            }
+
+            var cellIdGenerator = new Random();
+            for (int x = 0; x < boardShape?.Width; ++x)
+            {
+                for (int y = 0; y < boardShape?.Height; ++ y)
+                {
+                    var cell = new Cell{ valueTypeId = cellIdGenerator.Next(1, 5)};
+                    Game.Instance().GameBoard?.SetCell(x, y, cell);
+                }
+            }
         }
     }
 }

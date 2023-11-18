@@ -1,14 +1,14 @@
-using Game_Forest_Test_Task.source.graphics;
-
 namespace Game_Forest_Test_Task.source.features.board
 {
     public class GameBoard
     {
         public GameBoardView View { get; private set; }
+        public Size Shape { get; private set; }
         private readonly Cell[,] cells;
 
         public GameBoard(Size shape, GameBoardView boardView)
         {
+            Shape = shape;
             View = boardView;
             cells = new Cell[shape.Width, shape.Height];
         }
