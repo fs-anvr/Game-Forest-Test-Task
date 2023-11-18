@@ -2,6 +2,7 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Window : Form
     {
+        private List<List<Control>> screens = new();
         public Window()
         {
             this.Size = Size.Empty;
@@ -28,10 +29,19 @@ namespace Game_Forest_Test_Task.source.graphics
             return this;
         }
 
-        public Window SetControls(List<Control> elements)
+        public Window AddScreen(List<Control> screen)
+        {
+            screens.Add(screen);
+            return this;
+        }
+
+        public Window SetActiveScreen(int index)
         {
             this.Controls.Clear();
-            this.Controls.AddRange(elements.ToArray());
+            if (index >= 0 && index < screens.Count)
+            {
+                this.Controls.AddRange(screens[index].ToArray());
+            }
             return this;
         }
     }

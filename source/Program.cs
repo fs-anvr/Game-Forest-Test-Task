@@ -1,5 +1,7 @@
 using Game_Forest_Test_Task.source.graphics;
 using Game_Forest_Test_Task.source.core;
+using Game_Forest_Test_Task.source.features;
+using Game_Forest_Test_Task.source.tools;
 
 namespace Game_Forest_Test_Task
 {
@@ -13,10 +15,18 @@ namespace Game_Forest_Test_Task
         private static void Start()
         {
             ApplicationConfiguration.Initialize();
-        
             var window = CreateMainWindow();
+            
             var game = new Game();
 
+            var windowSize = new Size(800, 600);
+            var screens = CreateScreens.Create(windowSize);
+            foreach(var screen in screens)
+            {
+                window.AddScreen(screen);
+            }
+            window.SetActiveScreen(1);
+            
             Application.Run(window);
         }
 
