@@ -1,4 +1,5 @@
 using Game_Forest_Test_Task.source.features;
+using Game_Forest_Test_Task.source.tools;
 
 namespace Game_Forest_Test_Task.source.graphics
 {
@@ -25,6 +26,33 @@ namespace Game_Forest_Test_Task.source.graphics
             var scoreText = "Score: -inf";
             var timerTextSize = new Size(140, 40);
             var timerText = "Time: 60 sec";
+            var cellSize = new Size(48, 48);
+            var boardSize = new Size(cellSize.Width * 8, cellSize.Height * 8);
+
+            var cells = new List<Control>
+            {
+                new Sprite()
+                    .SetSize(cellSize)
+                    .SetPosition(new Point {
+                        X = cellSize.Width * 0,
+                        Y = cellSize.Height * 0
+                        })
+                    .SetImage(Resources.LoadImage("blue"))
+            };
+
+            var board = new Sprite()
+                            .SetSize(boardSize)
+                            .SetPosition(new Point {
+                                X = windowSize.Width / 2 - boardSize.Width / 2,
+                                Y = windowSize.Height / 2 - boardSize.Height / 2
+                            })
+                            .SetImage(Resources.LoadImage("board"));
+            
+            foreach (var cell in cells)
+            {
+                board.Controls.Add(cell);
+            }
+
             var gameScreen = new List<Control>
             {
                 new Text()
@@ -40,7 +68,8 @@ namespace Game_Forest_Test_Task.source.graphics
                         X = windowSize.Width - timerTextSize.Width - margin,
                         Y = 10
                         })
-                    .SetText(timerText)
+                    .SetText(timerText),
+                board
             };
 
             var gameOverTextSize = new Size(300, 80);

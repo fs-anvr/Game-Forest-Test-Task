@@ -7,6 +7,8 @@ namespace Game_Forest_Test_Task.source.graphics
             this.Image = null;
             this.Size = Size.Empty;
             this.Location = Point.Empty;
+            this.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.BackColor = Color.Transparent;
         }
 
         public Sprite SetImage(Image image)
