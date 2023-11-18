@@ -1,7 +1,6 @@
+using Game_Forest_Test_Task.source.features.board;
 using Game_Forest_Test_Task.source.graphics;
 using Game_Forest_Test_Task.source.core;
-using Game_Forest_Test_Task.source.features;
-using Game_Forest_Test_Task.source.tools;
 
 namespace Game_Forest_Test_Task
 {
@@ -16,16 +15,37 @@ namespace Game_Forest_Test_Task
         {
             ApplicationConfiguration.Initialize();
             var window = CreateMainWindow();
-            
-            var game = new Game();
 
             var windowSize = new Size(800, 600);
-            var screens = CreateScreens.Create(windowSize);
-            foreach(var screen in screens)
+            var boardShape = new Size(8, 8);
+            var cellFilenames = new Dictionary<int, string>()
+            {
+                {1, "blue"},
+                {2, "gray"},
+                {3, "green"},
+                {4, "ogre"},
+                {5, "red"}
+            };
+            var ui = UI.Create(windowSize, boardShape, cellFilenames);
+            foreach(var screen in ui.Screens)
             {
                 window.AddScreen(screen);
             }
             window.SetActiveScreen(1);
+
+            var game = new Game()
+                .SetTargetFPS(60)
+                .SetGameBoard(new GameBoard(boardShape, ui.GameBoardView));
+
+            var cellIdGenerator = new Random();
+            for (int x = 0; x < boardShape.Width; ++x)
+            {
+                for (int y = 0; y < boardShape.Height; ++ y)
+                {
+                    var cell = new Cell{ valueTypeId = cellIdGenerator.Next(1, 5)};
+                    game.GameBoard?.SetCell(x, y, cell);
+                }
+            }
             
             Application.Run(window);
         }

@@ -1,11 +1,15 @@
 using Game_Forest_Test_Task.source.features;
+using Game_Forest_Test_Task.source.features.board;
 using Game_Forest_Test_Task.source.tools;
 
 namespace Game_Forest_Test_Task.source.graphics
 {
-    public class CreateScreens
+    public struct UI
     {
-        public static List<List<Control>> Create(Size windowSize)
+        public List<List<Control>> Screens { get; set; }
+        public GameBoardView GameBoardView { get; set; }
+
+        public static UI Create(Size windowSize, Size boardShape, Dictionary<int, string> cellFilenames)
         {
             var margin = 15;
 
@@ -29,29 +33,15 @@ namespace Game_Forest_Test_Task.source.graphics
             var cellSize = new Size(48, 48);
             var boardSize = new Size(cellSize.Width * 8, cellSize.Height * 8);
 
-            var cells = new List<Control>
-            {
-                new Sprite()
-                    .SetSize(cellSize)
-                    .SetPosition(new Point {
-                        X = cellSize.Width * 0,
-                        Y = cellSize.Height * 0
-                        })
-                    .SetImage(Resources.LoadImage("blue"))
-            };
-
-            var board = new Sprite()
+            var boardView = new Sprite()
                             .SetSize(boardSize)
                             .SetPosition(new Point {
                                 X = windowSize.Width / 2 - boardSize.Width / 2,
                                 Y = windowSize.Height / 2 - boardSize.Height / 2
                             })
                             .SetImage(Resources.LoadImage("board"));
-            
-            foreach (var cell in cells)
-            {
-                board.Controls.Add(cell);
-            }
+
+            var gameBoardView = new GameBoardView(boardView, boardShape, cellFilenames);
 
             var gameScreen = new List<Control>
             {
@@ -69,7 +59,7 @@ namespace Game_Forest_Test_Task.source.graphics
                         Y = 10
                         })
                     .SetText(timerText),
-                board
+                boardView
             };
 
             var gameOverTextSize = new Size(300, 80);
@@ -96,11 +86,17 @@ namespace Game_Forest_Test_Task.source.graphics
                     .SetActionId(GameAction.ClickGameOver)
             };
 
-            return new List<List<Control>>
+            var screens = new List<List<Control>>
             {
                 mainScreen,
                 gameScreen,
                 gameOverScreen
+            };
+
+            return new UI
+            {
+                Screens = screens,
+                GameBoardView = gameBoardView
             };
         }
     }

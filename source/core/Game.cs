@@ -1,7 +1,12 @@
+using Game_Forest_Test_Task.source.features.board;
+using Game_Forest_Test_Task.source.graphics;
+
 namespace Game_Forest_Test_Task.source.core
 {
     public class Game
     {
+        public GameBoard? GameBoard { get; private set; }
+
         private int targetFPS = (int)(1000f / 60f);
         private readonly System.Windows.Forms.Timer timer = new();
         private DateTime frameStart;
@@ -17,6 +22,12 @@ namespace Game_Forest_Test_Task.source.core
             SetupUpdate();
         }
 
+        public Game SetGameBoard(GameBoard board)
+        {
+            GameBoard = board;
+            return this;
+        }
+
         public Game SetTargetFPS(int fps)
         {
             targetFPS = fps;
@@ -26,6 +37,7 @@ namespace Game_Forest_Test_Task.source.core
 
         private void SetupUpdate()
         {
+            timer.Stop();
             timer.Interval = targetFPS;
             timer.Tick += Update;
             timer.Start();
