@@ -2,32 +2,41 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Text : Label
     {
-        private string text = "";
-        private Size size = Size.Empty;
+        public const string baseFontFamily = "Microsoft Sans Serif";
 
         public Text()
         {
-            Draw();
+            this.Size = Size.Empty;
+            this.Text = String.Empty;
+            this.Location = Point.Empty;
+
+            this.AutoSize = false;
+            this.TextAlign = ContentAlignment.MiddleCenter;
+            this.Font = new Font(baseFontFamily, 12);
         }
 
         public Text SetSize(Size size)
         {
-            this.size = size;
-            Draw();
+            this.Size = size;
             return this;
         }
 
         public Text SetText(string text)
         {
-            this.text = text;
-            Draw();
+            this.Text = text;
             return this;
         }
 
-        private void Draw()
+        public Text SetPosition(Point position)
         {
-            this.ClientSize = size;
-            this.Text = text;
+            this.Location = position;
+            return this;
+        }
+
+        public Text SetFontSize(int size)
+        {
+            this.Font = new Font(baseFontFamily, size);
+            return this;
         }
     }
 }

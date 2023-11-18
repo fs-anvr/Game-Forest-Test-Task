@@ -2,32 +2,29 @@ namespace Game_Forest_Test_Task.source.graphics
 {
     public class Sprite : PictureBox
     {
-        private Image? image;
-        private Size size = Size.Empty;
-
         public Sprite()
         {
-            Draw();
+            this.Image = null;
+            this.Size = Size.Empty;
+            this.Location = Point.Empty;
         }
 
         public Sprite SetImage(Image image)
         {
-            this.image = image;
-            Draw();
+            this.Image = image;
             return this;
         }
 
         public Sprite SetSize(Size size)
         {
-            this.size = size;
-            Draw();
+            this.Size = size;
             return this;
         }
 
-        private void Draw()
+        public Sprite SetPosition(Point position)
         {
-            this.Image = image;
-            this.Size = size;
+            this.Location = position;
+            return this;
         }
     }
 }
